@@ -143,8 +143,8 @@ paths:
     delete:
       tags:
         - Times
-      summary: Deleta um time
-      description: Exclui um time da base de dados
+      summary: Deleta um jogador
+      description: Exclui um jogador da base de dados
       operationId: deleteTimeById
       parameters:
         - $ref: '#/components/parameters/idParam'
@@ -168,8 +168,8 @@ paths:
     post:
       tags:
         - Jogadores
-      summary: Cadastrar um time
-      description: Registra um novo time
+      summary: Cadastrar um jogador
+      description: Registra um novo jogador
       operationId: postJogador
       requestBody:
         required: true
@@ -198,18 +198,18 @@ paths:
     get:
       tags:
         - Jogadores
-      summary: Buscar todos os times
-      description: Retorna uma lista de times
+      summary: Buscar todos os jogadores
+      description: Retorna uma lista de jogadores
       operationId: getAllJogadores
       responses:
         '200':
-          description: successful operation
+          description: Operação bem sucedida
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/JogadorApiResponse'
         '400':
-          description: Invalid ID supplied
+          description: Id inválido
           content:
             application/json:
               schema:
@@ -232,13 +232,13 @@ paths:
         - $ref: '#/components/parameters/idParam'
       responses:
         '200':
-          description: successful operation
+          description: Operação bem sucedida
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/JogadorApiResponse'
         '400':
-          description: Invalid ID supplied
+          description: Id inválido
           content:
             application/json:
               schema:
@@ -253,8 +253,8 @@ paths:
     put:
       tags:
         - Jogadores
-      summary: Alterar um time
-      description: Modifica as informações de um time
+      summary: Alterar um jogador
+      description: Modifica as informações de um jogador
       operationId: putJogador
       parameters:
         - $ref: '#/components/parameters/idParam'
@@ -303,6 +303,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorApiResponse'
+
   /transferencias:
     post:
       tags:
@@ -344,7 +345,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TimeApiRequest'
+              $ref: '#/components/schemas/TorneioApiRequest'
       responses:
         '201':
           description: Created
@@ -369,15 +370,15 @@ paths:
       operationId: getAllTorneios
       responses:
         '200':
-          description: successful operation
+          description: Operação bem sucedida
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  - $ref: '#/components/schemas/TimeApiResponse'
+                  - $ref: '#/components/schemas/TorneioApiResponse'
         '400':
-          description: Invalid ID supplied
+          description: Id inválido
           content:
             application/json:
               schema:
@@ -400,13 +401,13 @@ paths:
         - $ref: '#/components/parameters/idParam'
       responses:
         '200':
-          description: successful operation
+          description: Operação bem sucedida
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TimeApiResponse'
+                $ref: '#/components/schemas/TorneioApiResponse'
         '400':
-          description: Invalid ID supplied
+          description: Id inválido
           content:
             application/json:
               schema:
@@ -431,34 +432,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TimeApiRequest'
+              $ref: '#/components/schemas/TorneioApiRequest'
       responses:
         '204':
           description: Operação bem sucedida
-        '400':
-          description: Id inválido
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorApiResponse'
-        '404':
-          description: Id não encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorApiResponse'
-
-    delete:
-      tags:
-        - Torneios
-      summary: Deleta um time
-      description: Exclui um time da base de dados
-      operationId: deleteTorneioById
-      parameters:
-        - $ref: '#/components/parameters/idParam'
-      responses:
-        '200':
-          description: Deletado com sucesso
         '400':
           description: Id inválido
           content:
@@ -476,8 +453,8 @@ paths:
     post:
       tags:
         - Partidas
-      summary: Cadastrar um time
-      description: Registra um novo time
+      summary: Cadastrar um início de partida
+      description: Registra o início de uma nova partida
       operationId: postInicio
       parameters:
         - in: path
@@ -492,12 +469,13 @@ paths:
           schema:
             type: integer
             format: int64
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TimeApiRequest'
+        - in: header
+          required: true
+          name: dataInicio
+          schema:
+            type: string
+            description: Data e hora do início da partida
+            example: 10/04/2022 21:00
       responses:
         '201':
           description: Created
@@ -534,54 +512,18 @@ paths:
           schema:
             type: integer
             format: int64
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TimeApiRequest'
-      responses:
-        '201':
-          description: Created
-        '422':
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorApiResponse'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorApiResponse'
-
-  /torneios/{idTorneio}/partidas/{idPartida}/eventos/intervalo:
-    post:
-      tags:
-        - Partidas
-      summary: Cadastrar um intervalo
-      description: Registra um novo intervalo
-      operationId: postintervalo
-      parameters:
-        - in: path
+        - in: header
           required: true
-          name: idTorneio
+          name: minuto
           schema:
             type: integer
-            format: int64
-        - in: path
+            description: Minuto em que o gol foi feito
+            example: 34
+        - in: header
           required: true
-          name: idPartida
+          name: jogador
           schema:
-            type: integer
-            format: int64
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TimeApiRequest'
+            $ref: '#/components/schemas/Jogador'
       responses:
         '201':
           description: Created
@@ -618,12 +560,19 @@ paths:
           schema:
             type: integer
             format: int64
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TimeApiRequest'
+        - in: header
+          required: true
+          name: tempo
+          description: Informa em qual tempo (1 ou 2) foi efetuado o acréscimo
+          schema:
+            type: integer
+        - in: header
+          required: true
+          name: minutos
+          description: Informa quantos minutos serão acrescidos
+          example: 4
+          schema:
+            type: integer
       responses:
         '201':
           description: Created
@@ -660,12 +609,25 @@ paths:
           schema:
             type: integer
             format: int64
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TimeApiRequest'
+        - in: header
+          required: true
+          name: idJogadorSubstituido
+          schema:
+            type: integer
+            format: int64
+        - in: header
+          required: true
+          name: idJogadorSubstituto
+          schema:
+            type: integer
+            format: int64
+        - in: header
+          required: true
+          name: minuto
+          schema:
+            type: integer
+            description: Minuto em que a substituicao foi feita
+            example: 34
       responses:
         '201':
           description: Created
@@ -702,12 +664,18 @@ paths:
           schema:
             type: integer
             format: int64
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TimeApiRequest'
+        - in: header
+          required: true
+          name: tipo
+          schema:
+            type: string
+            enum: [ AMARELO, VERMELHO ]
+        - in: header
+          required: true
+          name: idJogador
+          schema:
+            type: integer
+            format: int64
       responses:
         '201':
           description: Created
@@ -744,12 +712,13 @@ paths:
           schema:
             type: integer
             format: int64
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TimeApiRequest'
+        - in: header
+          required: true
+          name: dataFim
+          schema:
+            type: string
+            description: Data e hora do fim da partida
+            example: 10/04/2022 23:00
       responses:
         '201':
           description: Created
@@ -793,9 +762,7 @@ components:
           example: Detalhe genérico
 
     TimeApiRequest:
-      required:
-        - nome
-        - localidade
+      required: [ nome, localidade ]
       type: object
       properties:
         nome:
@@ -821,6 +788,9 @@ components:
           example: Brasileiro
 
     JogadorApiResponse:
+      $ref: '#/components/schemas/Jogador'
+
+    Jogador:
       type: object
       properties:
         id:
@@ -841,6 +811,7 @@ components:
 
     TransferenciaApiRequest:
       type: object
+      required: [ idOrigem, idDestino, idJogador ]
       properties:
         idOrigem:
           type: integer
@@ -875,3 +846,40 @@ components:
       type: string
       enum: [ AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO ]
       description: Estados do Brasil
+
+    TorneioApiRequest:
+      type: object
+      required: [ dataInicio, dataFim ]
+      properties:
+        dataInicio:
+          type: string
+          example: 10/04/2022
+          description: Data do início do torneio
+        dataFim:
+          type: string
+          example: 13/11/2022
+          description: Data do fim do torneio
+
+    TorneioApiResponse:
+      $ref: '#/components/schemas/Torneio'
+
+    Torneio:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Id do torneio
+          example: 1
+        dataInicio:
+          type: string
+          example: 10/04/2022
+          description: Data do início do torneio
+        dataFim:
+          type: string
+          example: 13/11/2022
+          description: Data do fim do torneio
+        timeCampeao:
+          $ref: '#/components/schemas/Time'
+        craque:
+          $ref: '#/components/schemas/Jogador'
