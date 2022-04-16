@@ -1,4 +1,5 @@
 # CampeonatoApi
+#### *Desenvolvido por: Jessica Machado / Matrícula: 138932*
 
 API de gerenciamento do campeonato de futebol brasileiro. Conta com:
 
