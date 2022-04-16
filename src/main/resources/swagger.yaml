@@ -31,9 +31,7 @@ paths:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                - $ref: '#/components/schemas/TimeApiRequest'
+              $ref: '#/components/schemas/TimeApiRequest'
       responses:
         '201':
           description: Criado
@@ -282,7 +280,7 @@ paths:
         - Jogadores
       summary: Deleta um time
       description: Exclui um time da base de dados
-      operationId: deleteJogador
+      operationId: deleteJogadorById
       parameters:
         - $ref: '#/components/parameters/idParam'
       responses:
@@ -840,6 +838,10 @@ components:
         nacionalidade:
           type: string
           example: Brasileiro
+        idTime:
+          type: integer
+          format: int64
+          example: 1
 
     JogadorApiResponse:
       $ref: '#/components/schemas/Jogador'
