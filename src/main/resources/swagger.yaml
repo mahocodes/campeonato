@@ -573,9 +573,10 @@ paths:
             example: 34
         - in: header
           required: true
-          name: jogador
+          name: idJogador
           schema:
-            $ref: '#/components/schemas/Jogador'
+            type: integer
+            format: int64
       responses:
         '201':
           description: Created
@@ -828,6 +829,7 @@ components:
 
     JogadorApiRequest:
       type: object
+      required: [ nome, dataNascimento, nacionalidade, idTime ]
       properties:
         nome:
           type: string
@@ -867,14 +869,14 @@ components:
 
     TransferenciaApiRequest:
       type: object
-      required: [ idOrigem, idDestino, idJogador ]
+      required: [ idTimeOrigem, idTimeDestino, idJogador ]
       properties:
-        idOrigem:
+        idTimeOrigem:
           type: integer
           format: int64
           description: Id do time de origem
           example: 10
-        idDestino:
+        idTimeDestino:
           type: integer
           format: int64
           description: Id do time de destino
@@ -946,14 +948,20 @@ components:
 
     PartidaApiRequest:
       type: object
+      required: [ idTorneio, dataRealizacao, idTimeMandante, idTimeVisitante ]
       properties:
+        idTorneio:
+          type: integer
+          format: int64
         dataRealizacao:
           type: string
           example: 10/04/2022 21:00
-        timeMandante:
-          $ref: '#/components/schemas/Time'
-        timeVisitante:
-          $ref: '#/components/schemas/Time'
+        idTimeMandante:
+          type: integer
+          format: int64
+        idTimeVisitante:
+          type: integer
+          format: int64
 
     PartidaApiResponse:
       $ref: '#/components/schemas/Partida'

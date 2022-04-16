@@ -21,4 +21,28 @@ public class InputParams {
     private final Long idTime;
 
     private final Localidade localidade;
+
+    private final Long idTorneio;
+
+    private final Long idPartida;
+
+    private final Integer tempo;
+
+    private final Integer minutos;
+
+    private final Integer minuto;
+
+    private final String tipoEvento;
+
+    private final String tipoAdvertencia;
+
+    private final Long idJogador;
+
+    private final Long idJogadorSubstituto;
+
+    private final Long idTimeMandante;
+
+    private final Long idTimeVisitante;
+
+    private final String data;
 }
