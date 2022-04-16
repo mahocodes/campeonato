@@ -12,9 +12,6 @@ tags:
   - name: Jogadores
     description: Tudo sobre os jogadores
 
-  - name: Transferencias
-    description: Tudo sobre as transfências de jogadores entre times
-
   - name: Torneios
     description: Tudo sobre torneios
 
@@ -176,9 +173,7 @@ paths:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                - $ref: '#/components/schemas/JogadorApiRequest'
+              $ref: '#/components/schemas/JogadorApiRequest'
       responses:
         '201':
           description: Created
@@ -207,7 +202,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JogadorApiResponse'
+                type: array
+                items:
+                  - $ref: '#/components/schemas/JogadorApiResponse'
         '400':
           description: Id inválido
           content:
@@ -436,6 +433,63 @@ paths:
       responses:
         '204':
           description: Operação bem sucedida
+        '400':
+          description: Id inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '404':
+          description: Id não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+  /partidas:
+    post:
+      tags:
+        - Partidas
+      summary: Cadastrar uma partida
+      description: Registra uma nova partida
+      operationId: postPartida
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartidaApiRequest'
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+    get:
+      tags:
+        - Partidas
+      summary: Buscar todas as partidas
+      description: Retorna uma lista de partidas
+      operationId: getAllPartidas
+      responses:
+        '200':
+          description: Operação bem sucedida
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  - $ref: '#/components/schemas/PartidaApiResponse'
         '400':
           description: Id inválido
           content:
@@ -859,6 +913,10 @@ components:
           type: string
           example: 13/11/2022
           description: Data do fim do torneio
+        timeCampeao:
+          $ref: '#/components/schemas/Time'
+        craque:
+          $ref: '#/components/schemas/Jogador'
 
     TorneioApiResponse:
       $ref: '#/components/schemas/Torneio'
@@ -883,3 +941,77 @@ components:
           $ref: '#/components/schemas/Time'
         craque:
           $ref: '#/components/schemas/Jogador'
+
+    PartidaApiRequest:
+      type: object
+      properties:
+        dataRealizacao:
+          type: string
+          example: 10/04/2022 21:00
+        timeMandante:
+          $ref: '#/components/schemas/Time'
+        timeVisitante:
+          $ref: '#/components/schemas/Time'
+
+    PartidaApiResponse:
+      $ref: '#/components/schemas/Partida'
+
+    Partida:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Id da partida
+          example: 1
+        dataRealizacao:
+          type: string
+          example: 10/04/2022 21:00
+        timeMandante:
+          $ref: '#/components/schemas/Time'
+        timeVisitante:
+          $ref: '#/components/schemas/Time'
+        eventos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Evento'
+
+    Evento:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Id da partida
+          example: 1
+        data:
+          type: string
+          example: 10/04/2022 21:00
+        tempo:
+          type: integer
+          description: 1 ou 2 tempo
+          example: 1
+        minutos:
+          type: integer
+          description: Minuto da partida que o evento ocorreu ou quantidade de minutos acrescidos
+          example: 35
+        tipo:
+          $ref: '#/components/schemas/TipoEvento'
+        gravidade:
+          $ref: '#/components/schemas/TipoAdvertencia'
+        jogador:
+          $ref: '#/components/schemas/Jogador'
+        jogadorSubstituto:
+          $ref: '#/components/schemas/Jogador'
+        partida:
+          $ref: '#/components/schemas/Partida'
+
+    TipoEvento:
+      type: string
+      enum: [ INICIO, GOL, ACRESCIMO, SUBSTITUICAO, ADVERTENCIA, FIM ]
+      description: Estados do Brasil
+
+    TipoAdvertencia:
+      type: string
+      enum: [ INICIO, GOL, ACRESCIMO, SUBSTITUICAO, ADVERTENCIA, FIM ]
+      description: Estados do Brasil

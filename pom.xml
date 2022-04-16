@@ -133,12 +133,6 @@
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>4.4.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
             <artifactId>mockito-inline</artifactId>
             <version>4.4.0</version>
             <scope>test</scope>
@@ -160,6 +154,35 @@
             <artifactId>build-helper-maven-plugin</artifactId>
             <version>3.3.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-codegen-cli</artifactId>
+            <version>2.4.27</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.reactivex.rxjava2</groupId>
+            <artifactId>rxjava</artifactId>
+            <version>2.2.21</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micronaut.sql</groupId>
+            <artifactId>micronaut-hibernate-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micronaut.data</groupId>
+            <artifactId>micronaut-data-hibernate-jpa</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -214,18 +237,89 @@
             <plugin>
                 <groupId>io.swagger.codegen.v3</groupId>
                 <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <version>3.0.33</version>
+                <executions>
+                    <execution>
+                        <id>api-call</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/swagger.yaml</inputSpec>
+                            <ignoreFileOverride>${project.basedir}/src/main/resources/.swagger-codegen-ignore
+                            </ignoreFileOverride>
+                            <language>micronaut</language>
+                            <addCompileSourceRoot>false</addCompileSourceRoot>
+                            <generateApis>true</generateApis>
+                            <generateSupportingFiles>true</generateSupportingFiles>
+                            <configOptions>
+                                <projectVersion>${project.version}</projectVersion>
+                                <projectArtifactId>${project.artifactId}</projectArtifactId>
+                                <java8>true</java8>
+                                <dateLibrary>java8</dateLibrary>
+                                <serializableModel>false</serializableModel>
+                                <useTags>true</useTags>
+                                <interfaceOnly>true</interfaceOnly>
+                                <genSecured>true</genSecured>
+                                <requestMode>true</requestMode>
+                                <frameworkMode>false</frameworkMode>
+                                <skipDefaultInterface>true</skipDefaultInterface>
+                                <library>resttemplate</library>
+                            </configOptions>
+                            <output>${project.build.directory}/generated-sources/swagger</output>
+                            <typeMappings>
+                                <typeMapping>bigInteger=BigInteger</typeMapping>
+                            </typeMappings>
+                            <importMappings>
+                                <importMapping>BigInteger=java.math.BigInteger</importMapping>
+                            </importMappings>
+                            <modelPackage>campeonato.model</modelPackage>
+                            <apiPackage>campeonato.controller</apiPackage>
+                            <generateModelDocumentation>false</generateModelDocumentation>
+                            <skip>false</skip>
+                        </configuration>
+                    </execution>
+                </executions>
                 <configuration>
+                    <inputSpec>${project.basedir}/src/main/resources/swagger.yaml</inputSpec>
+                    <ignoreFileOverride>${project.basedir}/src/main/resources/.swagger-codegen-ignore
+                    </ignoreFileOverride>
+                    <language>micronaut</language>
+                    <addCompileSourceRoot>false</addCompileSourceRoot>
+                    <generateApis>true</generateApis>
+                    <generateSupportingFiles>true</generateSupportingFiles>
                     <configOptions>
+                        <projectVersion>${project.version}</projectVersion>
+                        <projectArtifactId>${project.artifactId}</projectArtifactId>
+                        <java8>true</java8>
+                        <dateLibrary>java8</dateLibrary>
+                        <serializableModel>false</serializableModel>
                         <useTags>true</useTags>
+                        <interfaceOnly>true</interfaceOnly>
+                        <genSecured>true</genSecured>
+                        <requestMode>true</requestMode>
+                        <frameworkMode>false</frameworkMode>
+                        <skipDefaultInterface>true</skipDefaultInterface>
                     </configOptions>
-                    <inputSpec/>
-                    <language/>
+                    <output>${project.build.directory}/generated-sources/swagger</output>
+                    <typeMappings>
+                        <typeMapping>bigInteger=BigInteger</typeMapping>
+                    </typeMappings>
+                    <importMappings>
+                        <importMapping>BigInteger=java.math.BigInteger</importMapping>
+                    </importMappings>
+                    <modelPackage>campeonato.model</modelPackage>
+                    <apiPackage>campeonato.controller</apiPackage>
+                    <generateModelDocumentation>false</generateModelDocumentation>
+                    <skip>false</skip>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.3.0</version>
             </plugin>
 
             <plugin>
