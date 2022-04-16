@@ -40,9 +40,16 @@ public class InputParams {
 
     private final Long idJogadorSubstituto;
 
+    private final String dataInicio;
+
+    private final String dataFim;
+
+    private final Long idTimeCampeao;
+
+    private final Long idCraque;
+
     private final Long idTimeMandante;
 
     private final Long idTimeVisitante;
 
-    private final String data;
 }

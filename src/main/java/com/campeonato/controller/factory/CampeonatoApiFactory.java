@@ -3,6 +3,7 @@ package com.campeonato.controller.factory;
 import campeonato.model.JogadorApiRequest;
 import campeonato.model.PartidaApiRequest;
 import campeonato.model.TimeApiRequest;
+import campeonato.model.TorneioApiRequest;
 import io.micronaut.context.annotation.Factory;
 
 @Factory
@@ -58,7 +59,7 @@ public class CampeonatoApiFactory {
     public static InputParams buildParamsEvento(PartidaApiRequest request) {
         return new InputParams.InputParamsBuilder()
                 .idTorneio(request.getIdTorneio())
-                .data(request.getDataRealizacao())
+                .dataInicio(request.getDataRealizacao())
                 .idTimeMandante(request.getIdTimeMandante())
                 .idTimeVisitante(request.getIdTimeVisitante())
                 .build();
@@ -71,6 +72,15 @@ public class CampeonatoApiFactory {
                 .idJogador(idJogadorSubstituido)
                 .idJogadorSubstituto(idJogadorSubstituto)
                 .minuto(minuto)
+                .build();
+    }
+
+    public static InputParams buildParamsTorneio(TorneioApiRequest request) {
+        return new InputParams.InputParamsBuilder()
+                .dataInicio(request.getDataInicio())
+                .dataFim(request.getDataFim())
+                .idTimeCampeao(request.getIdTimeCampeao())
+                .idCraque(request.getIdCraque())
                 .build();
     }
 }
