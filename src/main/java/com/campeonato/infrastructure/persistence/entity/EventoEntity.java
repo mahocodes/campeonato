@@ -24,12 +24,12 @@ public class EventoEntity implements Serializable {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo")
-    private TipoEvento tipo;
+    @Column(name = "tipo_evento")
+    private TipoEvento tipoEvento;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "gravidade")
-    private TipoAdvertencia gravidade;
+    @Column(name = "tipo_advertencia")
+    private TipoAdvertencia tipoAdvertencia;
 
     @Column(name = "data", columnDefinition = "TIMESTAMP")
     private LocalDateTime data;
