@@ -1,0 +1,877 @@
+openapi: 3.0.3
+
+info:
+  title: CampeonatoApi
+  description: API para gerenciamento do campeonato brasileiro
+  version: 1.0.0
+
+tags:
+  - name: Times
+    description: Tudo sobre os times
+
+  - name: Jogadores
+    description: Tudo sobre os jogadores
+
+  - name: Transferencias
+    description: Tudo sobre as transfências de jogadores entre times
+
+  - name: Torneios
+    description: Tudo sobre torneios
+
+  - name: Partidas
+    description: Tudo sobre as partidas de cada torneio
+
+paths:
+  /times:
+    post:
+      tags:
+        - Times
+      summary: Cadastrar um time
+      description: Registra um novo time
+      operationId: postTime
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                - $ref: '#/components/schemas/TimeApiRequest'
+      responses:
+        '201':
+          description: Criado
+        '422':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+    get:
+      tags:
+        - Times
+      summary: Buscar todos os times
+      description: Retorna uma lista de times
+      operationId: getAllTimes
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TimeApiResponse'
+        '400':
+          description: Id inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '404':
+          description: Id não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+  /times/{id}:
+    get:
+      tags:
+        - Times
+      summary: Busca um time for id
+      description: Retorna as informações de um time
+      operationId: getTimeById
+      parameters:
+        - $ref: '#/components/parameters/idParam'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeApiResponse'
+        '400':
+          description: Id inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '404':
+          description: Id não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+    put:
+      tags:
+        - Times
+      summary: Alterar um time
+      description: Modifica as informações de um time
+      operationId: putTime
+      parameters:
+        - $ref: '#/components/parameters/idParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeApiRequest'
+      responses:
+        '204':
+          description: Operação bem sucedida
+        '400':
+          description: Id inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '404':
+          description: Id não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+    delete:
+      tags:
+        - Times
+      summary: Deleta um time
+      description: Exclui um time da base de dados
+      operationId: deleteTimeById
+      parameters:
+        - $ref: '#/components/parameters/idParam'
+      responses:
+        '200':
+          description: Deletado com sucesso
+        '400':
+          description: Id inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '404':
+          description: Id não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+  /jogadores:
+    post:
+      tags:
+        - Jogadores
+      summary: Cadastrar um time
+      description: Registra um novo time
+      operationId: postJogador
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                - $ref: '#/components/schemas/JogadorApiRequest'
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+    get:
+      tags:
+        - Jogadores
+      summary: Buscar todos os times
+      description: Retorna uma lista de times
+      operationId: getAllJogadores
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JogadorApiResponse'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '404':
+          description: Id não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+  /jogadores/{id}:
+    get:
+      tags:
+        - Jogadores
+      summary: Busca um jogador for id
+      description: Retorna as informações de um jogador
+      operationId: getJogadorById
+      parameters:
+        - $ref: '#/components/parameters/idParam'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JogadorApiResponse'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '404':
+          description: Id não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+    put:
+      tags:
+        - Jogadores
+      summary: Alterar um time
+      description: Modifica as informações de um time
+      operationId: putJogador
+      parameters:
+        - $ref: '#/components/parameters/idParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JogadorApiRequest'
+      responses:
+        '204':
+          description: Operação bem sucedida
+        '400':
+          description: Id inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '404':
+          description: Id não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+    delete:
+      tags:
+        - Jogadores
+      summary: Deleta um time
+      description: Exclui um time da base de dados
+      operationId: deleteJogador
+      parameters:
+        - $ref: '#/components/parameters/idParam'
+      responses:
+        '200':
+          description: Deletado com sucesso
+        '400':
+          description: Id inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '404':
+          description: Id não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+  /transferencias:
+    post:
+      tags:
+        - Transferencias
+      summary: Cadastra uma tranferência de jogador
+      description: Registra uma nova transferência de jogador
+      operationId: postTransferencia
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferenciaApiRequest'
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+  /torneios:
+    post:
+      tags:
+        - Torneios
+      summary: Cadastrar um torneio
+      description: Registra um novo torneio
+      operationId: postTorneio
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeApiRequest'
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+    get:
+      tags:
+        - Torneios
+      summary: Buscar todos os torneios
+      description: Retorna uma lista de torneios
+      operationId: getAllTorneios
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  - $ref: '#/components/schemas/TimeApiResponse'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '404':
+          description: Id não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+  /torneios/{id}:
+    get:
+      tags:
+        - Torneios
+      summary: Busca um torneio por id
+      description: Retorna as informações de um torneio
+      operationId: getTorneioById
+      parameters:
+        - $ref: '#/components/parameters/idParam'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeApiResponse'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '404':
+          description: Id não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+    put:
+      tags:
+        - Torneios
+      summary: Alterar um torneio
+      description: Modifica as informações de um torneio
+      operationId: putTorneioById
+      parameters:
+        - $ref: '#/components/parameters/idParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeApiRequest'
+      responses:
+        '204':
+          description: Operação bem sucedida
+        '400':
+          description: Id inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '404':
+          description: Id não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+    delete:
+      tags:
+        - Torneios
+      summary: Deleta um time
+      description: Exclui um time da base de dados
+      operationId: deleteTorneioById
+      parameters:
+        - $ref: '#/components/parameters/idParam'
+      responses:
+        '200':
+          description: Deletado com sucesso
+        '400':
+          description: Id inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '404':
+          description: Id não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+  /torneios/{idTorneio}/partidas/{idPartida}/eventos/inicio:
+    post:
+      tags:
+        - Partidas
+      summary: Cadastrar um time
+      description: Registra um novo time
+      operationId: postInicio
+      parameters:
+        - in: path
+          required: true
+          name: idTorneio
+          schema:
+            type: integer
+            format: int64
+        - in: path
+          required: true
+          name: idPartida
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeApiRequest'
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+  /torneios/{idTorneio}/partidas/{idPartida}/eventos/gol:
+    post:
+      tags:
+        - Partidas
+      summary: Cadastrar um gol
+      description: Registra um novo gol
+      operationId: postGol
+      parameters:
+        - in: path
+          required: true
+          name: idTorneio
+          schema:
+            type: integer
+            format: int64
+        - in: path
+          required: true
+          name: idPartida
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeApiRequest'
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+  /torneios/{idTorneio}/partidas/{idPartida}/eventos/intervalo:
+    post:
+      tags:
+        - Partidas
+      summary: Cadastrar um intervalo
+      description: Registra um novo intervalo
+      operationId: postintervalo
+      parameters:
+        - in: path
+          required: true
+          name: idTorneio
+          schema:
+            type: integer
+            format: int64
+        - in: path
+          required: true
+          name: idPartida
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeApiRequest'
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+  /torneios/{idTorneio}/partidas/{idPartida}/eventos/acrescimo:
+    post:
+      tags:
+        - Partidas
+      summary: Cadastrar um acrescimo
+      description: Registra um novo acrescimo
+      operationId: postAcrescimo
+      parameters:
+        - in: path
+          required: true
+          name: idTorneio
+          schema:
+            type: integer
+            format: int64
+        - in: path
+          required: true
+          name: idPartida
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeApiRequest'
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+  /torneios/{idTorneio}/partidas/{idPartida}/eventos/substituicao:
+    post:
+      tags:
+        - Partidas
+      summary: Cadastrar uma substituicao
+      description: Registra uma nova substituicao
+      operationId: postSubstituicao
+      parameters:
+        - in: path
+          required: true
+          name: idTorneio
+          schema:
+            type: integer
+            format: int64
+        - in: path
+          required: true
+          name: idPartida
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeApiRequest'
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+  /torneios/{idTorneio}/partidas/{idPartida}/eventos/advertencia:
+    post:
+      tags:
+        - Partidas
+      summary: Cadastrar uma advertencia
+      description: Registra uma nova advertencia
+      operationId: postAdvertencia
+      parameters:
+        - in: path
+          required: true
+          name: idTorneio
+          schema:
+            type: integer
+            format: int64
+        - in: path
+          required: true
+          name: idPartida
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeApiRequest'
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+  /torneios/{idTorneio}/partidas/{idPartida}/eventos/fim:
+    post:
+      tags:
+        - Partidas
+      summary: Cadastrar o fim da partida
+      description: Registra o fim da partida
+      operationId: postFim
+      parameters:
+        - in: path
+          required: true
+          name: idTorneio
+          schema:
+            type: integer
+            format: int64
+        - in: path
+          required: true
+          name: idPartida
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeApiRequest'
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorApiResponse'
+
+components:
+  parameters:
+    idParam:
+      name: id
+      in: path
+      description: Número de identificação
+      example: 4
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  schemas:
+    ErrorApiResponse:
+      type: object
+      properties:
+        codigo:
+          type: string
+          example: CBXXX001
+        mensagem:
+          type: string
+          example: Erro genérico
+        detalhe:
+          type: string
+          example: Detalhe genérico
+
+    TimeApiRequest:
+      required:
+        - nome
+        - localidade
+      type: object
+      properties:
+        nome:
+          type: string
+          example: Clube Atlético Mineiro
+        localidade:
+          $ref: '#/components/schemas/Localidade'
+
+    TimeApiResponse:
+      $ref: '#/components/schemas/Time'
+
+    JogadorApiRequest:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: Neymar Jr.
+        dataNascimento:
+          type: string
+          example: 05/02/1992
+        nacionalidade:
+          type: string
+          example: Brasileiro
+
+    JogadorApiResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        nome:
+          type: string
+          example: Neymar Jr.
+        dataNascimento:
+          type: string
+          example: 05/02/1992
+        nacionalidade:
+          type: string
+          example: Brasileiro
+        time:
+          $ref: '#/components/schemas/Time'
+
+    TransferenciaApiRequest:
+      type: object
+      properties:
+        idOrigem:
+          type: integer
+          format: int64
+          description: Id do time de origem
+          example: 10
+        idDestino:
+          type: integer
+          format: int64
+          description: Id do time de destino
+          example: 13
+        idJogador:
+          type: integer
+          format: int64
+          description: Id do jogador a ser transferido
+          example: 23
+
+    Time:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        nome:
+          type: string
+          example: Clube Atlético Mineiro
+        localidade:
+          $ref: '#/components/schemas/Localidade'
+
+    Localidade:
+      type: string
+      enum: [ AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO ]
+      description: Estados do Brasil

@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.br
+testFramework: junit
+sourceLanguage: java
+buildTool: maven
+features: [ annotation-api, app-name, assertj, hibernate-validator, http-client, jackson-databind, java, java-application, jdbc-hikari, junit, lombok, maven, mockito, netty-server, openapi, postgres, readme, shade, slf4j-simple, swagger-ui, testcontainers, yaml ]
