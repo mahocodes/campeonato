@@ -1,6 +1,6 @@
 package com.campeonato.domain.service;
 
-import campeonato.model.JogadorApiResponse;
+import campeonato.model.TimeApiResponse;
 import com.campeonato.controller.factory.InputParams;
 import lombok.RequiredArgsConstructor;
 
@@ -8,16 +8,17 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class JogadorService {
+public class TimeService {
+
     public void delete(Long id) {
 
     }
 
-    public List<JogadorApiResponse> getAll() {
+    public List<TimeApiResponse> getAll() {
         return null;
     }
 
-    public JogadorApiResponse getById(Long id) {
+    public TimeApiResponse getById(Long id) {
         return null;
     }
 

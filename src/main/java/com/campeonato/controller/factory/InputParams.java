@@ -1,5 +1,6 @@
 package com.campeonato.controller.factory;
 
+import campeonato.model.Localidade;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,4 +17,8 @@ public class InputParams {
     private final String dataNascimento;
 
     private final String nacionalidade;
+
+    private final Long idTime;
+
+    private final Localidade localidade;
 }
