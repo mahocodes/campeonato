@@ -33,4 +33,7 @@ public class JogadorEntity implements Serializable {
     @JoinColumn(name = "id_time", referencedColumnName = "id")
     private TimeEntity time;
 
+    @Column(name = "nacionalidade")
+    private String nacionalidade;
+
 }

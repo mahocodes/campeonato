@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -22,6 +23,17 @@ public class PartidaEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "id_time_mandante", referencedColumnName = "id")
+    private TimeEntity timeMandante;
+
+    @OneToOne
+    @JoinColumn(name = "id_time_visitante", referencedColumnName = "id")
+    private TimeEntity timeVisitante;
+
+    @Column(name = "data_realizacao", columnDefinition = "TIMESTAMP")
+    private LocalDateTime dataRealizacao;
 
     @OneToMany(mappedBy = "partida")
     private Set<EventoEntity> eventos;

@@ -11,7 +11,8 @@ public enum ApiError {
 
     // CB - Campeonato brasileiro, XXX - IDENTIFICACAO DO ERRO, 000 - No SERIAL
 
-    BAD_REQUEST_ERROR("[CBBRE001]", "exception.request.badrequest.mensagem", "exception.request.badrequest.detalhe");
+    BAD_REQUEST_ERROR("[CBBRE001]", "exception.request.badrequest.mensagem", "exception.request.badrequest.detalhe"),
+    DATABASE_ERROR("[CBDBE001]", "exception.response.database.error.mensagem", "exception.response.database.error.detalhe");
 
     private String codigo;
     private String mensagem;

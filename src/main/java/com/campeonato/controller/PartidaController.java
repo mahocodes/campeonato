@@ -34,7 +34,7 @@ public class PartidaController implements PartidasApi {
     public Single<HttpResponse<Void>> postAcrescimo(Long idTorneio, Long idPartida, Integer tempo, Integer minutos) {
         var inputParams = CampeonatoApiFactory.buildParamsEventoAcrescimo(idTorneio, idPartida, tempo, minutos);
 
-        service.post(inputParams);
+        service.save(inputParams);
 
         return just(noContent());
     }
@@ -43,7 +43,7 @@ public class PartidaController implements PartidasApi {
     public Single<HttpResponse<Void>> postAdvertencia(Long idTorneio, Long idPartida, String tipo, Long idJogador) {
         var inputParams = CampeonatoApiFactory.buildParamsEventoAdvertencia(idTorneio, idPartida, tipo, idJogador);
 
-        service.post(inputParams);
+        service.save(inputParams);
 
         return just(noContent());
     }
@@ -54,7 +54,7 @@ public class PartidaController implements PartidasApi {
 
         var inputParams = CampeonatoApiFactory.buildParamsEventoInicioFim(idTorneio, idPartida, dataFim);
 
-        service.post(inputParams);
+        service.save(inputParams);
 
         return just(noContent());
     }
@@ -63,7 +63,7 @@ public class PartidaController implements PartidasApi {
     public Single<HttpResponse<Void>> postGol(Long idTorneio, Long idPartida, Integer minuto, Long idJogador) {
         var inputParams = CampeonatoApiFactory.buildParamsEventoGol(idTorneio, idPartida, minuto, idJogador);
 
-        service.post(inputParams);
+        service.save(inputParams);
 
         return just(noContent());
     }
@@ -74,7 +74,7 @@ public class PartidaController implements PartidasApi {
 
         var inputParams = buildParamsEventoInicioFim(idTorneio, idPartida, dataInicio);
 
-        service.post(inputParams);
+        service.save(inputParams);
 
         return just(noContent());
     }
@@ -85,7 +85,7 @@ public class PartidaController implements PartidasApi {
 
         var inputParams = buildParamsEvento(request);
 
-        service.post(inputParams);
+        service.save(inputParams);
 
         return just(noContent());
     }
@@ -94,7 +94,7 @@ public class PartidaController implements PartidasApi {
     public Single<HttpResponse<Void>> postSubstituicao(Long idTorneio, Long idPartida, Long idJogadorSubstituido, Long idJogadorSubstituto, Integer minuto) {
         var inputParams = buildParamsEventoSubtituicao(idTorneio, idPartida, idJogadorSubstituido, idJogadorSubstituto, minuto);
 
-        service.post(inputParams);
+        service.save(inputParams);
 
         return just(noContent());
     }
