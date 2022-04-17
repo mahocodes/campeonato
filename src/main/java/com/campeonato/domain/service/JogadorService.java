@@ -28,18 +28,18 @@ public class JogadorService {
     private final JogadorConverter converter;
 
     public void delete(Long id) {
-        var jogadorEntity = repository.findById(id);
+        var entity = repository.findById(id);
 
-        jogadorEntity.ifPresent(repository::delete);
+        entity.ifPresent(repository::delete);
     }
 
     public List<JogadorApiResponse> getAll() {
         var iterableEntity = repository.findAll();
 
-        var jogadorEntityList = stream(iterableEntity.spliterator(), false)
+        var entityList = stream(iterableEntity.spliterator(), false)
                 .collect(Collectors.toList());
 
-        return converter.toListApiResponse(jogadorEntityList);
+        return converter.toListApiResponse(entityList);
     }
 
     public JogadorApiResponse getById(Long id) {
@@ -64,9 +64,13 @@ public class JogadorService {
 
     public void updateById(Long id, InputParams inputParams) {
         try {
-            var entity = repository.findById(id);
+            var optionalEntity = timeRepository.findById(inputParams.getIdTime()).orElseThrow();
 
-            entity.map(repository::update).orElseThrow();
+            var entity = converter.toJogadorEntity(inputParams, optionalEntity);
+
+            entity.setId(id);
+
+            repository.update(entity);
         } catch (Exception exception) {
             log.error(DETALHE);
 

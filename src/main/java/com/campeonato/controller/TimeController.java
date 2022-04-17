@@ -51,7 +51,7 @@ public class TimeController implements TimesApi {
 
         var inputParams = buildParamsTime(request);
 
-        service.post(inputParams);
+        service.save(inputParams);
 
         return just(noContent());
     }
@@ -62,7 +62,7 @@ public class TimeController implements TimesApi {
 
         var inputParams = buildParamsTime(request);
 
-        service.put(id, inputParams);
+        service.updateById(id, inputParams);
 
         return just(noContent());
     }

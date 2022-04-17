@@ -30,9 +30,9 @@ public class EventoService {
 
     private final JogadorRepository jogadorRepository;
 
-    public void saveEvento(InputParams inputParams) {
+    public void save(InputParams inputParams) {
         try {
-            var eventoEntity = new EventoEntity();
+            EventoEntity eventoEntity;
 
             var partidaEntity = getOptionalPartida(inputParams).orElseThrow();
 
