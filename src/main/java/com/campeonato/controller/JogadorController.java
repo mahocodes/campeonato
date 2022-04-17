@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import static com.campeonato.controller.factory.CampeonatoApiFactory.buildParamsJogador;
+import static com.campeonato.controller.validator.CampeonatoApiValidator.validate;
 import static io.micronaut.core.util.CollectionUtils.isEmpty;
 import static io.micronaut.http.HttpResponse.*;
 import static io.reactivex.Single.just;
@@ -46,6 +47,8 @@ public class JogadorController implements JogadoresApi {
 
     @Override
     public Single<HttpResponse<Void>> postJogador(JogadorApiRequest request) {
+        validate(request);
+
         var inputParams = buildParamsJogador(request);
 
         service.post(inputParams);
@@ -55,6 +58,8 @@ public class JogadorController implements JogadoresApi {
 
     @Override
     public Single<HttpResponse<Void>> putJogador(JogadorApiRequest request, Long id) {
+        validate(request);
+
         var inputParams = buildParamsJogador(request);
 
         service.put(id, inputParams);

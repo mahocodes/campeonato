@@ -10,4 +10,9 @@ public class DefaultException extends RuntimeException {
     public DefaultException(String codigo, String mensagem, String detalhe, Throwable throwable) {
         super(codigo.concat(" ").concat(mensagem).concat(" ").concat(detalhe), throwable);
     }
+
+
+    public DefaultException(String codigo, String mensagem, String detalhe) {
+        super(codigo.concat(" ").concat(mensagem).concat(" ").concat(detalhe));
+    }
 }

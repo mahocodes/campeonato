@@ -8,4 +8,8 @@ public class BadRequestException extends DefaultException {
     public BadRequestException(String detalhe, Throwable throwable) {
         super(CODIGO, MENSAGEM, detalhe, throwable);
     }
+
+    public BadRequestException(String detalhe) {
+        super(CODIGO, MENSAGEM, detalhe);
+    }
 }

@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import static com.campeonato.controller.factory.CampeonatoApiFactory.*;
+import static com.campeonato.controller.validator.CampeonatoApiValidator.*;
 import static io.micronaut.core.util.CollectionUtils.isEmpty;
 import static io.micronaut.http.HttpResponse.*;
 import static io.reactivex.Single.just;
@@ -49,8 +50,9 @@ public class PartidaController implements PartidasApi {
 
     @Override
     public Single<HttpResponse<Void>> postFim(Long idTorneio, Long idPartida, String dataFim) {
-        var inputParams = CampeonatoApiFactory.buildParamsEventoInicioFim(idTorneio, idPartida, dataFim);
+        validateDataFim(dataFim);
 
+        var inputParams = CampeonatoApiFactory.buildParamsEventoInicioFim(idTorneio, idPartida, dataFim);
 
         service.post(inputParams);
 
@@ -68,6 +70,8 @@ public class PartidaController implements PartidasApi {
 
     @Override
     public Single<HttpResponse<Void>> postInicio(Long idTorneio, Long idPartida, String dataInicio) {
+        validateDataInicio(dataInicio);
+
         var inputParams = buildParamsEventoInicioFim(idTorneio, idPartida, dataInicio);
 
         service.post(inputParams);
@@ -77,6 +81,8 @@ public class PartidaController implements PartidasApi {
 
     @Override
     public Single<HttpResponse<Void>> postPartida(PartidaApiRequest request) {
+        validate(request);
+
         var inputParams = buildParamsEvento(request);
 
         service.post(inputParams);

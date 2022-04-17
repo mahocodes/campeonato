@@ -299,35 +299,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorApiResponse'
 
-  /transferencias:
-    post:
-      tags:
-        - Transferencias
-      summary: Cadastra uma tranferência de jogador
-      description: Registra uma nova transferência de jogador
-      operationId: postTransferencia
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TransferenciaApiRequest'
-      responses:
-        '201':
-          description: Created
-        '422':
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorApiResponse'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorApiResponse'
-
   /torneios:
     post:
       tags:

@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import static com.campeonato.controller.factory.CampeonatoApiFactory.buildParamsTorneio;
+import static com.campeonato.controller.validator.CampeonatoApiValidator.validate;
 import static io.micronaut.core.util.CollectionUtils.isEmpty;
 import static io.micronaut.http.HttpResponse.*;
 import static io.reactivex.Single.just;
@@ -39,6 +40,8 @@ public class TorneioController implements TorneiosApi {
 
     @Override
     public Single<HttpResponse<Void>> postTorneio(TorneioApiRequest request) {
+        validate(request);
+
         var inputParams = buildParamsTorneio(request);
 
         service.post(inputParams);
@@ -48,6 +51,8 @@ public class TorneioController implements TorneiosApi {
 
     @Override
     public Single<HttpResponse<Void>> putTorneioById(TorneioApiRequest request, Long id) {
+        validate(request);
+
         var inputParams = buildParamsTorneio(request);
 
         service.put(id, inputParams);
