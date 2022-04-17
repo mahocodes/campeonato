@@ -9,13 +9,21 @@ micronaut:
       swagger-ui:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
+  server:
+    context-path: /api/campeonato/v1
+
 datasources:
   default:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/campeonato
+    dialect: postgres
     driverClassName: org.postgresql.Driver
     username: postgres
-    password: ''
-netty:
+    password: '12345'
+
+jpa:
   default:
-    allocator:
-      max-order: 3
+    entity-scan:
+      packages: 'com.campeonato.infrastructure.persistence.entity'
+    properties:
+      hibernate:
+        show_sql: false

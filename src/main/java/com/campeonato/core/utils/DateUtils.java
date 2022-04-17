@@ -16,7 +16,7 @@ public class DateUtils {
     private static final DateTimeFormatter FORMATTER_SIMPLE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter FORMATTER_PT_BR = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
-    public String localDateTimeToString(LocalDateTime localDateTime) {
+    public static String localDateTimeToString(LocalDateTime localDateTime) {
         try {
             return localDateTime.format(FORMATTER_PT_BR);
         } catch (Exception exception) {
@@ -24,7 +24,7 @@ public class DateUtils {
         }
     }
 
-    public String localDateToString(LocalDate localDate) {
+    public static String localDateToString(LocalDate localDate) {
         try {
             return localDate.format(FORMATTER_SIMPLE);
         } catch (Exception exception) {
@@ -32,7 +32,7 @@ public class DateUtils {
         }
     }
 
-    public LocalDate stringToLocalDate(String localDate) {
+    public static LocalDate stringToLocalDate(String localDate) {
         try {
             return LocalDate.parse(localDate, FORMATTER_SIMPLE);
         } catch (Exception exception) {
@@ -40,7 +40,7 @@ public class DateUtils {
         }
     }
 
-    public LocalDateTime stringToLocalDateTime(String localDateTime) {
+    public static LocalDateTime stringToLocalDateTime(String localDateTime) {
         try {
             return LocalDateTime.parse(localDateTime.concat(":00"), FORMATTER_PT_BR);
         } catch (Exception exception) {

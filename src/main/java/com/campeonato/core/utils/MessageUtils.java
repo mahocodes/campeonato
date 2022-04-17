@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 @UtilityClass
 public class MessageUtils {
 
-    private final Locale BRAZIL = new Locale("pt", "BR");
+    private static final Locale BRAZIL = new Locale("pt", "BR");
 
     public static String getMessage(String key) {
         var resourceBundle = ResourceBundle.getBundle("messages", BRAZIL);

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tb_torneio", schema = "campeonato")
+@Table(name = "tb_evento", schema = "campeonato")
 public class EventoEntity implements Serializable {
 
     private static final long serialVersionUID = 734647442696607663L;
@@ -48,7 +48,7 @@ public class EventoEntity implements Serializable {
     private JogadorEntity jogador;
 
     @OneToOne
-    @JoinColumn(name = "id_jogador", referencedColumnName = "id")
+    @JoinColumn(name = "id_jogador_substituto", referencedColumnName = "id")
     private JogadorEntity jogadorSubstituto;
 
     @ManyToOne
