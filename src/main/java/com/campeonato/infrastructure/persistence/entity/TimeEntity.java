@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -28,5 +29,8 @@ public class TimeEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "localidade")
     private Localidade localidade;
+
+    @OneToMany(mappedBy = "time")
+    private Set<JogadorEntity> jogadores;
 
 }

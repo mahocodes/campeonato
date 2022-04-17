@@ -1,6 +1,8 @@
 package com.campeonato.controller.factory;
 
 import campeonato.model.Localidade;
+import campeonato.model.TipoAdvertencia;
+import campeonato.model.TipoEvento;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +34,9 @@ public class InputParams {
 
     private final Integer minuto;
 
-    private final String tipoEvento;
+    private final TipoEvento tipoEvento;
 
-    private final String tipoAdvertencia;
+    private final TipoAdvertencia tipoAdvertencia;
 
     private final Long idJogador;
 
@@ -43,6 +45,8 @@ public class InputParams {
     private final String dataInicio;
 
     private final String dataFim;
+
+    private final String dataRealizacao;
 
     private final Long idTimeCampeao;
 

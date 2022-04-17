@@ -51,7 +51,7 @@ public class JogadorController implements JogadoresApi {
 
         var inputParams = buildParamsJogador(request);
 
-        service.post(inputParams);
+        service.save(inputParams);
 
         return just(noContent());
     }
@@ -62,7 +62,7 @@ public class JogadorController implements JogadoresApi {
 
         var inputParams = buildParamsJogador(request);
 
-        service.put(id, inputParams);
+        service.updateById(id, inputParams);
 
         return just(noContent());
     }

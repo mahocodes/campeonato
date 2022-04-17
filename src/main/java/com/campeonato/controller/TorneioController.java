@@ -44,7 +44,7 @@ public class TorneioController implements TorneiosApi {
 
         var inputParams = buildParamsTorneio(request);
 
-        service.post(inputParams);
+        service.save(inputParams);
 
         return just(noContent());
     }
@@ -55,7 +55,7 @@ public class TorneioController implements TorneiosApi {
 
         var inputParams = buildParamsTorneio(request);
 
-        service.put(id, inputParams);
+        service.updateById(id, inputParams);
 
         return just(noContent());
     }

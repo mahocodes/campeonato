@@ -40,6 +40,9 @@ public class EventoEntity implements Serializable {
     @Column(name = "minutos")
     private Integer minutos;
 
+    @Column(name = "minuto")
+    private Integer minuto;
+
     @OneToOne
     @JoinColumn(name = "id_jogador", referencedColumnName = "id")
     private JogadorEntity jogador;
