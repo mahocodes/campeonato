@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 import static com.campeonato.controller.factory.CampeonatoApiFactory.buildParamsTime;
+import static com.campeonato.controller.validator.CampeonatoApiValidator.validate;
 import static io.micronaut.core.util.CollectionUtils.isEmpty;
 import static io.micronaut.http.HttpResponse.*;
 import static io.reactivex.Single.just;
@@ -46,6 +47,8 @@ public class TimeController implements TimesApi {
 
     @Override
     public Single<HttpResponse<Void>> postTime(TimeApiRequest request) {
+        validate(request);
+
         var inputParams = buildParamsTime(request);
 
         service.post(inputParams);
@@ -55,6 +58,8 @@ public class TimeController implements TimesApi {
 
     @Override
     public Single<HttpResponse<Void>> putTime(TimeApiRequest request, Long id) {
+        validate(request);
+
         var inputParams = buildParamsTime(request);
 
         service.put(id, inputParams);
