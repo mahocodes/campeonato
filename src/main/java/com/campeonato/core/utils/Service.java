@@ -1,4 +1,4 @@
-package com.campeonato.domain.service;
+package com.campeonato.core.utils;
 
 import java.lang.annotation.*;
 
