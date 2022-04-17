@@ -92,6 +92,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>io.micronaut.data</groupId>
+            <artifactId>micronaut-data-jdbc</artifactId>
+            <version>3.3.0</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
             <scope>compile</scope>
@@ -189,6 +195,22 @@
             <artifactId>micronaut-data-hibernate-jpa</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.micronaut.data</groupId>
+            <artifactId>micronaut-data-processor</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micronaut</groupId>
+            <artifactId>micronaut-inject-java</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micronaut</groupId>
+            <artifactId>micronaut-http</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -201,7 +223,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <annotationProcessorPaths combine.self="override">
+                    <annotationProcessorPaths combine.children="append">>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
@@ -232,12 +254,58 @@
                             <artifactId>micronaut-graal</artifactId>
                             <version>${micronaut.version}</version>
                         </path>
+                        <path>
+                            <groupId>io.micronaut.data</groupId>
+                            <artifactId>micronaut-data-processor</artifactId>
+                            <version>3.3.0</version>
+                        </path>
+                        <path>
+                            <groupId>io.micronaut.sql</groupId>
+                            <artifactId>micronaut-hibernate-jpa</artifactId>
+                        </path>
+                        <path>
+                            <groupId>io.micronaut</groupId>
+                            <artifactId>micronaut-http</artifactId>
+                        </path>
+                        <path>
+                            <groupId>javax.persistence</groupId>
+                            <artifactId>javax.persistence-api</artifactId>
+                            <version>2.2</version>
+                        </path>
                     </annotationProcessorPaths>
                     <compilerArgs>
                         <arg>-Amicronaut.processing.group=com.campeonato</arg>
                         <arg>-Amicronaut.processing.module=campeonato</arg>
                     </compilerArgs>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>test-compile</id>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                        <configuration>
+                            <annotationProcessorPaths>
+                                <path>
+                                    <groupId>io.micronaut</groupId>
+                                    <artifactId>micronaut-inject-java</artifactId>
+                                    <version>${micronaut.version}</version>
+                                </path>
+                                <path>
+                                    <groupId>io.micronaut</groupId>
+                                    <artifactId>micronaut-validation</artifactId>
+                                    <version>${micronaut.version}</version>
+                                </path>
+
+                                <path>
+                                    <groupId>io.micronaut.data</groupId>
+                                    <artifactId>micronaut-data-processor</artifactId>
+                                    <version>3.3.0</version>
+                                </path>
+                            </annotationProcessorPaths>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
